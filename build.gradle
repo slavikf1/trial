@@ -1,0 +1,27 @@
+plugins {
+    id 'org.springframework.boot' version '2.6.1'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter:2.6.1'
+    implementation 'org.springframework.boot:spring-boot-starter-web:2.6.1'
+    implementation 'org.springframework.cloud:spring-cloud-openfeign-dependencies:3.0.5'
+    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign:3.0.5'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf:2.6.1'
+    implementation 'com.epages:wiremock-spring-boot-starter:0.8.0'
+
+}
+
+test {
+    useJUnitPlatform()
+}
