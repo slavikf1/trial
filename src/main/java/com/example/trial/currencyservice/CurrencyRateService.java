@@ -1,5 +1,10 @@
-package com.example.trial;
+package com.example.trial.currencyservice;
 
+import com.example.trial.controller.BrokeController;
+import com.example.trial.currencyclient.CurrencyRateApiClient;
+import com.example.trial.exceptions.EmptyResponseException;
+import com.example.trial.exceptions.InvalidResponseException;
+import com.example.trial.giphyclient.GifPictureClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,31 +17,31 @@ import java.time.format.DateTimeFormatter;
 @Service
 public class CurrencyRateService {
 
-    Logger logger = LoggerFactory.getLogger(ViewController.class);
+    Logger logger = LoggerFactory.getLogger(BrokeController.class);
 
     private final CurrencyRateApiClient currencyRateApiClient;
-    private final gifPictureClient gifPictureClient;
-    private DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE;
+    private final GifPictureClient gifPictureClient;
+    private final DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE;
 
     @Value("${currencyApiAppId}")
     private String AppId;
 
-    @Value("${Giphy_api_key}")
+    @Value("${GiphyApiAppId}")
     private String giphyApiKey;
 
     @Autowired
-    public CurrencyRateService(CurrencyRateApiClient currencyRateApiClient, gifPictureClient gifPictureClient) {
+    public CurrencyRateService(CurrencyRateApiClient currencyRateApiClient, GifPictureClient gifPictureClient) {
         this.currencyRateApiClient = currencyRateApiClient;
         this.gifPictureClient = gifPictureClient;
     }
 
-    public CurrencyRate getHistoricalRateToBase (String symbols,LocalDate date){
+    public CurrencyRate getHistoricalRateToBase (String symbols, LocalDate date){
        CurrencyRate response = currencyRateApiClient.getHistorical(date.format(formatter), symbols, AppId);
        logger.trace("Obtained Historical currency date for code {}, the rate is {}", symbols, response.toString());
        return response;
     }
 
-    public int compareCurrentAndHistoricalRate (String symbols) throws EmptyResponseException{
+    public int compareCurrentAndHistoricalRate (String symbols) throws EmptyResponseException {
         CurrencyRate yesterday = currencyRateApiClient.getHistorical(LocalDate.now().minusDays(1).format(formatter), symbols, AppId);
         CurrencyRate latest = currencyRateApiClient.getLatest(AppId);
         if (yesterday.isEmpty() | latest.isEmpty()) {
@@ -47,14 +52,14 @@ public class CurrencyRateService {
                 symbols,
                 yesterday.getRate(symbols).toString(),
                 latest.getRate(symbols).toString());
-
-        return (yesterday.getRate(symbols).compareTo(latest.getRate(symbols)));
+        return (latest.getRate(symbols).compareTo(yesterday.getRate(symbols)));
+//        return (yesterday.getRate(symbols).compareTo(latest.getRate(symbols)));
     }
 
-    public String RateGif(String symbols) throws EmptyResponseException, InvalidResponseException{
+    public String RateGif(String symbols) throws EmptyResponseException, InvalidResponseException {
         int comparison = compareCurrentAndHistoricalRate(symbols);
 
-        if (comparison > 1){
+        if (comparison < 0){
             logger.trace("looking for a \"BROKE\" GIF picture");
             var result = gifPictureClient.getGifPicture(giphyApiKey, "broke");
             if (!result.isValid()) throw new InvalidResponseException("broke");
@@ -67,7 +72,7 @@ public class CurrencyRateService {
             if (!result.isValid()) throw new InvalidResponseException("equalizer");
             return result.getOriginal();
         }
-        else if (comparison < 1)
+        else if (comparison > 0)
             logger.trace("looking for a \"RICH\" GIF picture");
             var result = gifPictureClient.getGifPicture(giphyApiKey, "rich");
             if (!result.isValid()) throw new InvalidResponseException("rich");

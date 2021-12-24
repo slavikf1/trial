@@ -1,0 +1,21 @@
+{
+    "request": {
+        "method": "GET",
+        "urlPattern": "/historical/([0-9]|-)*.json\\?app_id=testapikey&symbols=LOWER"
+    },
+    "response": {
+        "status": 200,
+        "jsonBody": {
+    "disclaimer": "Usage subject to terms: https://openexchangerates.org/terms",
+    "license": "https://openexchangerates.org/license",
+    "timestamp": 1640217555,
+    "base": "USD",
+    "rates": {
+        "LOWER": 100.0
+    }
+		},
+        "headers": {
+            "Content-Type": "application/json"
+        }
+    }
+}

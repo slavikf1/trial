@@ -1,0 +1,21 @@
+{
+    "request": {
+        "method": "GET",
+        "url": "/api/historical/2021-12-22.json?app_id=testapikey&symbols=RUB"
+    },
+    "response": {
+        "status": 200,
+        "jsonBody": {
+    "disclaimer": "Usage subject to terms: https://openexchangerates.org/terms",
+    "license": "https://openexchangerates.org/license",
+    "timestamp": 1640217555,
+    "base": "USD",
+    "rates": {
+        "RUB": 73.6463
+    }
+		},
+        "headers": {
+            "Content-Type": "application/json"
+        }
+    }
+}

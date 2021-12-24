@@ -15,10 +15,10 @@ repositories {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter:2.6.1'
     implementation 'org.springframework.boot:spring-boot-starter-web:2.6.1'
-    implementation 'org.springframework.cloud:spring-cloud-openfeign-dependencies:3.0.5'
     implementation 'org.springframework.cloud:spring-cloud-starter-openfeign:3.0.5'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf:2.6.1'
-    implementation 'com.epages:wiremock-spring-boot-starter:0.8.0'
+    implementation 'org.springframework.boot:spring-boot-starter-test:2.6.1'
+    implementation 'com.github.tomakehurst:wiremock-jre8:2.32.0'
 
 }
 

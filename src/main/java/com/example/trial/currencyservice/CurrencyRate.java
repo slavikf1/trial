@@ -1,4 +1,4 @@
-package com.example.trial;
+package com.example.trial.currencyservice;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -26,7 +26,7 @@ public class CurrencyRate {
         return rates;
     }
 
-    boolean isEmpty(){
+    public boolean isEmpty(){
         return (rates.isEmpty());
     }
 

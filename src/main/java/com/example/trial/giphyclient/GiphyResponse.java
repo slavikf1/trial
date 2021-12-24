@@ -1,4 +1,4 @@
-package com.example.trial;
+package com.example.trial.giphyclient;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
