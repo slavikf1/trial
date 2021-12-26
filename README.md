@@ -4,7 +4,8 @@
 GIF отдается отсюда - https://giphy.com/search/equalizer.
 
 ## Настройка
-Перед запуском необходимо прописать API ключи обоих сервисов в application.properties, расположенный в src/main/resources
+Перед запуском необходимо прописать API ключи обоих сервисов в application.properties, расположенный в src/main/resources.
+В application.properties можно сменить порт сервера.
 
 ## Запуск
 с помощью gradle wrapper = в папке проекта запустить "gradlew.bat bootrun".
